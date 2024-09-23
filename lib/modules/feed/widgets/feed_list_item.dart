@@ -4,15 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gallery_picker/gallery_picker.dart';
-import 'package:sintez_test/modules/feed/models/post_dto.dart';
+import 'package:sintez_test/modules/feed/view_models/feed_list_item_vm.dart';
+import 'package:sintez_test/shared/constants/colors.dart';
 
 class FeedListItem extends StatelessWidget {
-  final PostDto post;
+  final FeedListItemViewModel viewModel;
 
-  const FeedListItem({Key? key, required this.post}) : super(key: key);
+  const FeedListItem({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var post = viewModel.post;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +22,10 @@ class FeedListItem extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge),
-        Text("Posted on: ${post.datePosted}", style: Theme.of(context).textTheme.bodySmall,),
+        Text(
+          "Posted on: ${post.datePosted}",
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
         if (post.isVideo)
           Container(
             constraints: const BoxConstraints(maxHeight: 300),
@@ -42,15 +47,18 @@ class FeedListItem extends StatelessWidget {
         Text(post.content, maxLines: 2, overflow: TextOverflow.ellipsis),
         Observer(builder: (context) {
           return InkWell(
-            onTap: () {},
+            onTap: () async => await viewModel.handleLike(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  CupertinoIcons.heart_fill,
+                  viewModel.isLiked
+                      ? CupertinoIcons.heart_fill
+                      : CupertinoIcons.heart,
+                  color: viewModel.isLiked ? AppColors.likeColor : null,
                 ),
-                Text(post.likeCount.toString()),
+                Text(viewModel.post.likeCount.toString()),
               ],
             ),
           );

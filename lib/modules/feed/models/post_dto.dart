@@ -50,4 +50,19 @@ class PostDto {
         extension == "mkv" ||
         extension == "webm";
   }
+
+  PostDto copyWith({
+    String? title,
+    String? content,
+    String? mediaUrl,
+    int? likeCount,
+  }) {
+    return PostDto(
+        id: id,
+        creationDate: creationDate,
+        title: title ?? this.title,
+        content: content ?? this.content,
+        mediaUrl: mediaUrl ?? this.mediaUrl,
+        likeCount: likeCount ?? this.likeCount);
+  }
 }

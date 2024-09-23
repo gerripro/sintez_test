@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:sintez_test/modules/feed/view_models/feed_list_item_vm.dart';
 import 'package:sintez_test/modules/feed/view_models/feed_page_vm.dart';
 import 'package:sintez_test/modules/feed/widgets/feed_list_item.dart';
 import 'package:sintez_test/shared/constants/spacings.dart';
@@ -43,7 +44,8 @@ class FeedPage extends StatelessWidget {
             },
             itemBuilder: (context, index) {
               var post = posts[index];
-              return FeedListItem(post: post);
+              return FeedListItem(
+                  viewModel: viewModel.createFeedListItemViewModel(post));
             },
           );
         }),
