@@ -14,7 +14,12 @@ final GoRouter _router = GoRouter(
             name: RouteName.feed,
             path: RoutePath.feed,
             builder: (BuildContext context, GoRouterState state) {
-              return Container(color: Colors.green);
+              return Feed(
+                  viewModel: FeedViewModel(
+                      router: _router,
+                      repository: PostRepository(
+                          postDao: PostDaoSqfliteImpl(
+                              database: ioc<SDatabase>().instance))));
             },
           ),
         ]),

@@ -6,4 +6,4 @@ import 'ioc.config.dart';
 final ioc = GetIt.instance;
 
 @injectableInit
-void configureDependencies() => ioc.init();
+Future<void> configureDependencies() async => await ioc.init();
