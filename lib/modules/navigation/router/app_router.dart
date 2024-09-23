@@ -30,13 +30,14 @@ final GoRouter _router = GoRouter(
                         viewModel: PostCreationPageViewModel(
                             router: _router,
                             uuidGenerator: UuidGenerator(),
+                            mediaHandlerService: MediaHandlerService(
+                                galleryPickerWrapper: GalleryPickerWrapper()),
                             repository: PostRepository(
                                 postDao: PostDaoSqfliteImpl(
                                     database: ioc<SDatabase>().instance))));
                   },
                 )
               ]),
-        ]
-),
+        ]),
   ],
 );

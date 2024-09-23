@@ -44,6 +44,7 @@ dependencies:
   path: ^1.9.0
   sqflite: ^2.3.3+1
   uuid: ^4.5.0
+  gallery_picker: ^0.5.1
 
 dev_dependencies:
   flutter_test:

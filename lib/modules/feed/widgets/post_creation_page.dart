@@ -19,7 +19,8 @@ class PostCreationPage extends StatelessWidget {
             child: Form(
               key: viewModel.postCreationFormKey,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: Spacings.medium),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: Spacings.medium),
                 child: Column(
                   children: [
                     STextFormField(
@@ -40,7 +41,10 @@ class PostCreationPage extends StatelessWidget {
                     ),
                     const SizedBox(height: Spacings.small),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text("Upload media file")),
+                        onPressed: () async {
+                          await viewModel.pickMedia(context: context);
+                        },
+                        child: const Text("Upload media file")),
                     const SizedBox(height: Spacings.small),
                     MaterialButton(
                       onPressed: () async {
@@ -48,7 +52,9 @@ class PostCreationPage extends StatelessWidget {
                           await viewModel.tryCreatePost();
                         } catch (e) {
                           if (e is FieldValidationError) {
-                            SnackBars.callRegularSnackBar(context: context, text: "Please fill in the required fields");
+                            SnackBars.callRegularSnackBar(
+                                context: context,
+                                text: "Please fill in the required fields");
                           }
                         }
                       },

@@ -9,6 +9,8 @@ import 'package:sintez_test/modules/feed/view_models/feed_page_vm.dart';
 import 'package:sintez_test/modules/feed/view_models/post_creation_page_vm.dart';
 import 'package:sintez_test/modules/feed/widgets/feed_page.dart';
 import 'package:sintez_test/modules/feed/widgets/post_creation_page.dart';
+import 'package:sintez_test/modules/media_picker/services/media_handler_service.dart';
+import 'package:sintez_test/modules/media_picker/wrappers/gallery_picker_wrapper.dart';
 import 'package:sintez_test/modules/navigation/constants/routes.dart';
 import 'package:sintez_test/modules/navigation/view_models/shell_navigation_vm.dart';
 import 'package:sintez_test/modules/navigation/widgets/shell_navigation_page.dart';

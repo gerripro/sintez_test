@@ -21,10 +21,25 @@ class FeedPage extends StatelessWidget {
                 child: Text("There are no news at this moment"));
           }
           return ListView.separated(
+            physics: const BouncingScrollPhysics(),
             itemCount: posts.length,
-            padding: const EdgeInsets.all(Spacings.small),
+            padding: const EdgeInsets.only(
+                left: Spacings.small,
+                right: Spacings.small,
+                top: Spacings.small,
+                bottom: Spacings.large * 2),
             separatorBuilder: (context, index) {
-              return const SizedBox(height: Spacings.small);
+              return Column(
+                children: [
+                  const SizedBox(height: Spacings.small / 2),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(height: Spacings.small / 2),
+                ],
+              );
             },
             itemBuilder: (context, index) {
               var post = posts[index];
