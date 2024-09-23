@@ -4,6 +4,7 @@ import 'package:sintez_test/app/sintez_app.dart';
 import 'package:sintez_test/modules/navigation/router/navigation_register_module.dart';
 
 Future<void> main() async {
-  configureDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(SintezApp(sintezAppRouter: ioc<SintezAppRouter>()));
 }
