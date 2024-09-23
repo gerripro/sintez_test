@@ -2,17 +2,18 @@ import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
 import 'package:sintez_test/modules/feed/repositories/post_repository.dart';
+import 'package:sintez_test/modules/navigation/constants/routes.dart';
 import 'package:sintez_test/shared/utils/logger/logger.dart';
 
-part 'feed_vm.g.dart';
+part 'feed_page_vm.g.dart';
 
-class FeedViewModel = _FeedViewModel with _$FeedViewModel;
+class FeedPageViewModel = _FeedPageViewModel with _$FeedPageViewModel;
 
-abstract class _FeedViewModel with Store {
+abstract class _FeedPageViewModel with Store {
   final GoRouter router;
   final PostRepository repository;
 
-  _FeedViewModel({required this.repository, required this.router}) {
+  _FeedPageViewModel({required this.repository, required this.router}) {
     getPosts();
   }
 
@@ -48,5 +49,9 @@ abstract class _FeedViewModel with Store {
     } finally {
       _postsFetching = false;
     }
+  }
+
+  void openPostCreation() {
+    router.push(RoutePath.createPost);
   }
 }

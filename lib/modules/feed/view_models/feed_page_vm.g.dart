@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'feed_vm.dart';
+part of 'feed_page_vm.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,24 +8,24 @@ part of 'feed_vm.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$FeedViewModel on _FeedViewModel, Store {
+mixin _$FeedPageViewModel on _FeedPageViewModel, Store {
   Computed<List<PostDto>>? _$postsComputed;
 
   @override
   List<PostDto> get posts =>
       (_$postsComputed ??= Computed<List<PostDto>>(() => super.posts,
-              name: '_FeedViewModel.posts'))
+              name: '_FeedPageViewModel.posts'))
           .value;
   Computed<bool>? _$postsFetchingComputed;
 
   @override
   bool get postsFetching =>
       (_$postsFetchingComputed ??= Computed<bool>(() => super.postsFetching,
-              name: '_FeedViewModel.postsFetching'))
+              name: '_FeedPageViewModel.postsFetching'))
           .value;
 
   late final _$_postsAtom =
-      Atom(name: '_FeedViewModel._posts', context: context);
+      Atom(name: '_FeedPageViewModel._posts', context: context);
 
   @override
   List<PostDto> get _posts {
@@ -41,7 +41,7 @@ mixin _$FeedViewModel on _FeedViewModel, Store {
   }
 
   late final _$_postsFetchingAtom =
-      Atom(name: '_FeedViewModel._postsFetching', context: context);
+      Atom(name: '_FeedPageViewModel._postsFetching', context: context);
 
   @override
   bool get _postsFetching {
@@ -57,7 +57,7 @@ mixin _$FeedViewModel on _FeedViewModel, Store {
   }
 
   late final _$getPostsAsyncAction =
-      AsyncAction('_FeedViewModel.getPosts', context: context);
+      AsyncAction('_FeedPageViewModel.getPosts', context: context);
 
   @override
   Future<void> getPosts() {

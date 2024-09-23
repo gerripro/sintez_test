@@ -11,14 +11,16 @@ class FeedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(post.title),
+        Text(post.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+        Text("Posted on: ${post.datePosted}"),
         Container(
           height: 50,
-          width: 50,
+          width: double.infinity,
           color: Colors.blue,
         ),
-        Text(post.content),
+        Text(post.content, maxLines: 2, overflow: TextOverflow.ellipsis),
         Observer(builder: (context) {
           return InkWell(
             onTap: () {},
@@ -34,7 +36,6 @@ class FeedListItem extends StatelessWidget {
             ),
           );
         }),
-        Text("Posted on: ${post.datePosted}"),
       ],
     );
   }
