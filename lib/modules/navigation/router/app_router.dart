@@ -14,12 +14,15 @@ final GoRouter _router = GoRouter(
               name: RouteName.feed,
               path: RoutePath.feed,
               builder: (BuildContext context, GoRouterState state) {
+                var db = ioc<SDatabase>().instance;
                 return FeedPage(
                     viewModel: FeedPageViewModel(
                         router: _router,
-                        repository: PostRepository(
-                            postDao: PostDaoSqfliteImpl(
-                                database: ioc<SDatabase>().instance))));
+                        likesService: LikesService(
+                            repository: LikesRepository(
+                                likesDao: LikesDaoSqfliteImpl(database: db))),
+                        postsRepository: PostRepository(
+                            postDao: PostDaoSqfliteImpl(database: db))));
               },
               routes: [
                 GoRoute(

@@ -42,7 +42,14 @@ class PostCreationPage extends StatelessWidget {
                     const SizedBox(height: Spacings.small),
                     ElevatedButton(
                         onPressed: () async {
-                          await viewModel.pickMedia(context: context);
+                          try {
+                            await viewModel.pickMedia(context: context);
+                          } catch (e) {
+                            SnackBars.callRegularSnackBar(
+                                context: context,
+                                text:
+                                    "Something went wrong with gallery access. Please try again later");
+                          }
                         },
                         child: const Text("Upload media file")),
                     const SizedBox(height: Spacings.small),

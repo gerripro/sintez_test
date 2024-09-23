@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
 import 'package:sintez_test/modules/feed/repositories/post_repository.dart';
+import 'package:sintez_test/modules/feed/services/likes_service.dart';
 import 'package:sintez_test/modules/feed/view_models/feed_list_item_vm.dart';
 import 'package:sintez_test/modules/navigation/constants/routes.dart';
 import 'package:sintez_test/shared/utils/logger/logger.dart';
@@ -12,9 +13,13 @@ class FeedPageViewModel = _FeedPageViewModel with _$FeedPageViewModel;
 
 abstract class _FeedPageViewModel with Store {
   final GoRouter router;
-  final PostRepository repository;
+  final PostRepository postsRepository;
+  final LikesService likesService;
 
-  _FeedPageViewModel({required this.repository, required this.router}) {
+  _FeedPageViewModel(
+      {required this.postsRepository,
+      required this.likesService,
+      required this.router}) {
     getPosts();
   }
 
@@ -34,7 +39,7 @@ abstract class _FeedPageViewModel with Store {
   Future<void> getPosts() async {
     _postsFetching = true;
     try {
-      _posts = await repository.getAllPosts();
+      _posts = await postsRepository.getAllPosts();
     } catch (e) {
       debugLogger.e(e);
     } finally {
@@ -47,6 +52,6 @@ abstract class _FeedPageViewModel with Store {
   }
 
   FeedListItemViewModel createFeedListItemViewModel(PostDto postDto) {
-    return FeedListItemViewModel(repository: repository, postDto: postDto);
+    return FeedListItemViewModel(likesService: likesService, postDto: postDto);
   }
 }

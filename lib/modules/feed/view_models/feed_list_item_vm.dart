@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
+import 'package:sintez_test/modules/feed/models/like_data.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
-import 'package:sintez_test/modules/feed/repositories/post_repository.dart';
+import 'package:sintez_test/modules/feed/services/likes_service.dart';
 import 'package:sintez_test/shared/utils/logger/logger.dart';
 
 part 'feed_list_item_vm.g.dart';
@@ -9,40 +10,48 @@ class FeedListItemViewModel = _FeedListItemViewModel
     with _$FeedListItemViewModel;
 
 abstract class _FeedListItemViewModel with Store {
-  final PostRepository repository;
+  final LikesService likesService;
   final PostDto postDto;
 
-  _FeedListItemViewModel({required this.repository, required this.postDto}) {
-    post = postDto;
-    if (post.likeCount > 0) _isLiked = true;
+  _FeedListItemViewModel({required this.likesService, required this.postDto}) {
+    _getLikes();
   }
 
   @observable
-  late PostDto post;
+  LikeData? likeData;
 
   @computed
-  bool get isLiked => _isLiked;
+  bool get isLoading => _isLoading;
 
   @observable
-  bool _isLiked = false;
+  bool _isLoading = true;
 
   // FIXME: like/unlike logic needs to be refactored when system can differentiate users
   @action
   Future<void> handleLike() async {
     try {
-      PostDto updatedPost;
-      if (post.likeCount > 0) {
-        updatedPost = post.copyWith(likeCount: post.likeCount - 1);
-        _isLiked = false;
+      if (!likeData!.likedByCurrentUser) {
+        await likesService.addLike(postId: postDto.id);
       } else {
-        updatedPost = post.copyWith(likeCount: post.likeCount + 1);
-        _isLiked = true;
+        await likesService.removeLike(postId: postDto.id);
       }
-      await repository.updatePost(updatedPost);
-      post = updatedPost;
+      await _getLikes();
     } catch (e) {
       debugLogger.e(e);
       rethrow;
+    }
+  }
+
+  @action
+  Future<void> _getLikes() async {
+    _isLoading = true;
+    try {
+      likeData = await likesService.getLikeDataByPost(postId: postDto.id);
+    } catch (e) {
+      debugLogger.e(e);
+      rethrow;
+    } finally {
+      _isLoading = false;
     }
   }
 }

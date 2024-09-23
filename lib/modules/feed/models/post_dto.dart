@@ -11,15 +11,14 @@ class PostDto {
 
   /// unix timestamp
   final int creationDate;
-  final int likeCount;
 
-  PostDto(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.mediaUrl,
-      required this.creationDate,
-      this.likeCount = 0});
+  PostDto({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.mediaUrl,
+    required this.creationDate,
+  });
 
   factory PostDto.fromJson(Map<String, dynamic> json) =>
       _$PostDtoFromJson(json);
@@ -49,20 +48,5 @@ class PostDto {
         extension == "mpeg" ||
         extension == "mkv" ||
         extension == "webm";
-  }
-
-  PostDto copyWith({
-    String? title,
-    String? content,
-    String? mediaUrl,
-    int? likeCount,
-  }) {
-    return PostDto(
-        id: id,
-        creationDate: creationDate,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        mediaUrl: mediaUrl ?? this.mediaUrl,
-        likeCount: likeCount ?? this.likeCount);
   }
 }

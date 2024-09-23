@@ -14,7 +14,7 @@ class FeedListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var post = viewModel.post;
+    var post = viewModel.postDto;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,6 +46,8 @@ class FeedListItem extends StatelessWidget {
               )),
         Text(post.content, maxLines: 2, overflow: TextOverflow.ellipsis),
         Observer(builder: (context) {
+          if (viewModel.isLoading) return const CircularProgressIndicator();
+          var likeData = viewModel.likeData!;
           return InkWell(
             onTap: () async => await viewModel.handleLike(),
             child: Row(
@@ -53,12 +55,13 @@ class FeedListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  viewModel.isLiked
+                  likeData.likedByCurrentUser
                       ? CupertinoIcons.heart_fill
                       : CupertinoIcons.heart,
-                  color: viewModel.isLiked ? AppColors.likeColor : null,
+                  color:
+                      likeData.likedByCurrentUser ? AppColors.likeColor : null,
                 ),
-                Text(viewModel.post.likeCount.toString()),
+                Text(likeData.likeCount.toString()),
               ],
             ),
           );

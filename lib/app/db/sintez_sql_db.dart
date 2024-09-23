@@ -17,8 +17,15 @@ final class SDatabase {
             title TEXT NOT NULL,
             content TEXT NOT NULL,
             mediaUrl TEXT,
-            creationDate INTEGER NOT NULL,
-            likeCount INTEGER NOT NULL
+            creationDate INTEGER NOT NULL
+          )
+        ''');
+        await db.execute('''
+          CREATE TABLE IF NOT EXISTS ${SDbConfigs.likesTable} (
+            id TEXT PRIMARY KEY,
+            userId TEXT NOT NULL,
+            postId TEXT NOT NULL,
+            FOREIGN KEY(postId) REFERENCES ${SDbConfigs.postsTable}(id) ON DELETE CASCADE
           )
         ''');
       },

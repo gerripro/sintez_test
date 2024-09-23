@@ -12,7 +12,6 @@ PostDto _$PostDtoFromJson(Map<String, dynamic> json) => PostDto(
       content: json['content'] as String,
       mediaUrl: json['mediaUrl'] as String?,
       creationDate: (json['creationDate'] as num).toInt(),
-      likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$PostDtoToJson(PostDto instance) => <String, dynamic>{
@@ -21,5 +20,4 @@ Map<String, dynamic> _$PostDtoToJson(PostDto instance) => <String, dynamic>{
       'content': instance.content,
       'mediaUrl': instance.mediaUrl,
       'creationDate': instance.creationDate,
-      'likeCount': instance.likeCount,
     };

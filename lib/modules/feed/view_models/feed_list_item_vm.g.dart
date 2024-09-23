@@ -9,45 +9,43 @@ part of 'feed_list_item_vm.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$FeedListItemViewModel on _FeedListItemViewModel, Store {
-  Computed<bool>? _$isLikedComputed;
+  Computed<bool>? _$isLoadingComputed;
 
   @override
-  bool get isLiked => (_$isLikedComputed ??= Computed<bool>(() => super.isLiked,
-          name: '_FeedListItemViewModel.isLiked'))
-      .value;
+  bool get isLoading =>
+      (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading,
+              name: '_FeedListItemViewModel.isLoading'))
+          .value;
 
-  late final _$postAtom =
-      Atom(name: '_FeedListItemViewModel.post', context: context);
+  late final _$likeDataAtom =
+      Atom(name: '_FeedListItemViewModel.likeData', context: context);
 
   @override
-  PostDto get post {
-    _$postAtom.reportRead();
-    return super.post;
+  LikeData? get likeData {
+    _$likeDataAtom.reportRead();
+    return super.likeData;
   }
 
-  bool _postIsInitialized = false;
-
   @override
-  set post(PostDto value) {
-    _$postAtom.reportWrite(value, _postIsInitialized ? super.post : null, () {
-      super.post = value;
-      _postIsInitialized = true;
+  set likeData(LikeData? value) {
+    _$likeDataAtom.reportWrite(value, super.likeData, () {
+      super.likeData = value;
     });
   }
 
-  late final _$_isLikedAtom =
-      Atom(name: '_FeedListItemViewModel._isLiked', context: context);
+  late final _$_isLoadingAtom =
+      Atom(name: '_FeedListItemViewModel._isLoading', context: context);
 
   @override
-  bool get _isLiked {
-    _$_isLikedAtom.reportRead();
-    return super._isLiked;
+  bool get _isLoading {
+    _$_isLoadingAtom.reportRead();
+    return super._isLoading;
   }
 
   @override
-  set _isLiked(bool value) {
-    _$_isLikedAtom.reportWrite(value, super._isLiked, () {
-      super._isLiked = value;
+  set _isLoading(bool value) {
+    _$_isLoadingAtom.reportWrite(value, super._isLoading, () {
+      super._isLoading = value;
     });
   }
 
@@ -59,11 +57,19 @@ mixin _$FeedListItemViewModel on _FeedListItemViewModel, Store {
     return _$handleLikeAsyncAction.run(() => super.handleLike());
   }
 
+  late final _$_getLikesAsyncAction =
+      AsyncAction('_FeedListItemViewModel._getLikes', context: context);
+
+  @override
+  Future<void> _getLikes() {
+    return _$_getLikesAsyncAction.run(() => super._getLikes());
+  }
+
   @override
   String toString() {
     return '''
-post: ${post},
-isLiked: ${isLiked}
+likeData: ${likeData},
+isLoading: ${isLoading}
     ''';
   }
 }
