@@ -16,6 +16,13 @@ mixin _$FeedListItemViewModel on _FeedListItemViewModel, Store {
       (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading,
               name: '_FeedListItemViewModel.isLoading'))
           .value;
+  Computed<bool>? _$isPostMediaVideoComputed;
+
+  @override
+  bool get isPostMediaVideo => (_$isPostMediaVideoComputed ??= Computed<bool>(
+          () => super.isPostMediaVideo,
+          name: '_FeedListItemViewModel.isPostMediaVideo'))
+      .value;
 
   late final _$likeDataAtom =
       Atom(name: '_FeedListItemViewModel.likeData', context: context);
@@ -69,7 +76,8 @@ mixin _$FeedListItemViewModel on _FeedListItemViewModel, Store {
   String toString() {
     return '''
 likeData: ${likeData},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+isPostMediaVideo: ${isPostMediaVideo}
     ''';
   }
 }

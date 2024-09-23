@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:sintez_test/modules/feed/models/like_data.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
 import 'package:sintez_test/modules/feed/services/likes_service.dart';
+import 'package:sintez_test/shared/utils/helpers/format_check.dart';
 import 'package:sintez_test/shared/utils/logger/logger.dart';
 
 part 'feed_list_item_vm.g.dart';
@@ -26,7 +27,9 @@ abstract class _FeedListItemViewModel with Store {
   @observable
   bool _isLoading = true;
 
-  // FIXME: like/unlike logic needs to be refactored when system can differentiate users
+  @computed
+  bool get isPostMediaVideo => FormatCheckHelper.isVideo(postDto.mediaUrl);
+
   @action
   Future<void> handleLike() async {
     try {

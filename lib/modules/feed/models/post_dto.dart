@@ -35,18 +35,4 @@ class PostDto {
     String formattedDate = '$day/$month/$year';
     return formattedDate;
   }
-
-  bool get isVideo {
-    if (mediaUrl == null) return false;
-    String extension = mediaUrl!.split('.').last.toLowerCase();
-    return extension == "mp4" ||
-        extension == "mov" ||
-        extension == "wmv" ||
-        extension == "m4v" ||
-        extension == "3gp" ||
-        extension == "avi" ||
-        extension == "mpeg" ||
-        extension == "mkv" ||
-        extension == "webm";
-  }
 }

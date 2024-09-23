@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sintez_test/modules/feed/errors/field_validation_error.dart';
 import 'package:sintez_test/modules/feed/view_models/post_creation_page_vm.dart';
 import 'package:sintez_test/shared/constants/spacings.dart';
 import 'package:sintez_test/shared/utils/notifiers/snackbars.dart';
 import 'package:sintez_test/shared/widgets/input_fields/text_form_field.dart';
+import 'package:sintez_test/shared/widgets/media/post_media_view.dart';
 
 class PostCreationPage extends StatelessWidget {
   final PostCreationPageViewModel viewModel;
@@ -23,6 +25,13 @@ class PostCreationPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: Spacings.medium),
                 child: Column(
                   children: [
+                    Observer(builder: (context) {
+                      if (viewModel.mediaUrl == null) return const SizedBox();
+                      return PostMediaView(
+                        mediaUrl: viewModel.mediaUrl,
+                        isVideo: viewModel.isPostMediaVideo,
+                      );
+                    }),
                     STextFormField(
                       controller: viewModel.titleController,
                       labelText: "Title",

@@ -8,7 +8,7 @@ class MediaHandlerService {
   MediaHandlerService({required this.galleryPickerWrapper});
 
   Future<MediaFile?> pickMedia({required BuildContext context}) async {
-    await galleryPickerWrapper.pickMedia(context: context);
+    return await galleryPickerWrapper.pickMedia(context: context);
   }
 
   Future<String> getMediaPath(MediaFile mediaFile) async {

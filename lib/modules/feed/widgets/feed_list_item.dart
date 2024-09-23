@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:gallery_picker/gallery_picker.dart';
 import 'package:sintez_test/modules/feed/view_models/feed_list_item_vm.dart';
 import 'package:sintez_test/shared/constants/colors.dart';
+import 'package:sintez_test/shared/widgets/media/post_media_view.dart';
 
 class FeedListItem extends StatelessWidget {
   final FeedListItemViewModel viewModel;
@@ -26,24 +24,9 @@ class FeedListItem extends StatelessWidget {
           "Posted on: ${post.datePosted}",
           style: Theme.of(context).textTheme.bodySmall,
         ),
-        if (post.isVideo)
-          Container(
-            constraints: const BoxConstraints(maxHeight: 300),
-            alignment: Alignment.center,
-            child: VideoProvider(
-              media: MediaFile.file(
-                  id: post.id,
-                  file: File(post.mediaUrl!),
-                  type: MediaType.video),
-            ),
-          ),
-        if (post.mediaUrl != null && !post.isVideo)
-          Container(
-              constraints: const BoxConstraints(maxHeight: 300),
-              alignment: Alignment.center,
-              child: Image.file(
-                File(post.mediaUrl!),
-              )),
+        PostMediaView(
+          mediaUrl: viewModel.postDto.mediaUrl,
+          isVideo: viewModel.isPostMediaVideo,),
         Text(post.content, maxLines: 2, overflow: TextOverflow.ellipsis),
         Observer(builder: (context) {
           if (viewModel.isLoading) return const CircularProgressIndicator();
@@ -59,7 +42,7 @@ class FeedListItem extends StatelessWidget {
                       ? CupertinoIcons.heart_fill
                       : CupertinoIcons.heart,
                   color:
-                      likeData.likedByCurrentUser ? AppColors.likeColor : null,
+                  likeData.likedByCurrentUser ? AppColors.likeColor : null,
                 ),
                 Text(likeData.likeCount.toString()),
               ],
