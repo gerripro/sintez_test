@@ -17,6 +17,7 @@ import 'package:sintez_test/modules/media_picker/wrappers/gallery_picker_wrapper
 import 'package:sintez_test/modules/navigation/constants/routes.dart';
 import 'package:sintez_test/modules/navigation/view_models/shell_navigation_vm.dart';
 import 'package:sintez_test/modules/navigation/widgets/shell_navigation_page.dart';
+import 'package:sintez_test/modules/theme/stores/theme_store.dart';
 import 'package:sintez_test/shared/utils/helpers/uuid_generator.dart';
 
 part "app_router.dart";

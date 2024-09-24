@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sintez_test/modules/navigation/view_models/shell_navigation_vm.dart';
+import 'package:sintez_test/shared/constants/spacings.dart';
 
 class ShellNavigationPage extends StatelessWidget {
   final ShellNavigationViewModel viewModel;
@@ -14,41 +15,20 @@ class ShellNavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: Observer(builder: (context) {
-        //   return IconButton(
-        //     onPressed: () {
-        //       viewModel.openDrawer(context);
-        //     },
-        //     icon: Icon(Icons.menu),
-        //   );
-        // }),
+        actions: [
+          Observer(builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(Spacings.medium),
+              child: Switch(
+                value: viewModel.switchValue,
+                onChanged: (value) {
+                  viewModel.switchTheme();
+                },
+              ),
+            );
+          }),
+        ],
       ),
-      // drawer: Drawer(
-      //   elevation: 0,
-      //   shape: const RoundedRectangleBorder(),
-      //   child: SafeArea(
-      //     child: Container(
-      //       child: SingleChildScrollView(
-      //         child: Padding(
-      //           padding: const EdgeInsets.all(16.0),
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               InkWell(
-      //                 onTap: () => viewModel.openPage1(),
-      //                 child: Text("page1"),
-      //               ),
-      //               InkWell(
-      //                 onTap: () => viewModel.openPage2(),
-      //                 child: Text("page2"),
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: child,
     );
   }

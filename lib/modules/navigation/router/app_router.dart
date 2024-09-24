@@ -6,7 +6,8 @@ final GoRouter _router = GoRouter(
     ShellRoute(
         builder: (context, state, child) {
           return ShellNavigationPage(
-              viewModel: ShellNavigationViewModel(router: _router),
+              viewModel: ShellNavigationViewModel(
+                  router: _router, themeStore: ioc<ThemeStore>()),
               child: child);
         },
         routes: [
