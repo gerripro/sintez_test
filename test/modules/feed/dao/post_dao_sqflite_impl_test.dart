@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import '../../../mocks.dart';
 
 void main() {
-  late MockSQFliteDatabase sqFliteDatabase;
+  late MockSDatabase sqFliteDatabase;
   const postsTable = SDbConfigs.postsTable;
   var testPostDto = PostDto(
       id: 'id',
@@ -19,15 +19,17 @@ void main() {
   late Map<String, dynamic> testPostDtoJson;
 
   setUpAll(() {
-    sqFliteDatabase = MockSQFliteDatabase();
+    sqFliteDatabase = MockSDatabase();
     testPostDtoJson = testPostDto.toJson();
   });
 
   test(
       'Should return a list of PostDto '
-          'on getAllPosts', () async {
+      'on getAllPosts', () async {
     var postDaoSqfliteImpl = PostDaoSqfliteImpl(database: sqFliteDatabase);
-    when(() => sqFliteDatabase.query(postsTable))
+    var mockSQFliteDatabase = MockSQFliteDatabase();
+    when(() => sqFliteDatabase.instance).thenReturn(mockSQFliteDatabase);
+    when(() => mockSQFliteDatabase.query(postsTable))
         .thenAnswer((_) async => [testPostDtoJson]);
 
     final result = await postDaoSqfliteImpl.getAllPosts();
@@ -38,11 +40,13 @@ void main() {
     expect(result[0].title, 'Test Post');
   });
 
-  test('Should insert a post into the database'
+  test(
+      'Should insert a post into the database'
       'on insertPost', () async {
     var postDaoSqfliteImpl = PostDaoSqfliteImpl(database: sqFliteDatabase);
-    when(() =>
-        sqFliteDatabase.insert(
+    var mockSQFliteDatabase = MockSQFliteDatabase();
+    when(() => sqFliteDatabase.instance).thenReturn(mockSQFliteDatabase);
+    when(() => mockSQFliteDatabase.insert(
           postsTable,
           testPostDtoJson,
           conflictAlgorithm: ConflictAlgorithm.fail,
@@ -50,48 +54,54 @@ void main() {
 
     await postDaoSqfliteImpl.insertPost(testPostDto);
 
-    verify(() => sqFliteDatabase.insert(
-    postsTable,
-    testPostDtoJson,
-    conflictAlgorithm: ConflictAlgorithm.fail,
-    )).called(1);
+    verify(() => mockSQFliteDatabase.insert(
+          postsTable,
+          testPostDtoJson,
+          conflictAlgorithm: ConflictAlgorithm.fail,
+        )).called(1);
   });
 
-  test('Should delete a post from the database'
+  test(
+      'Should delete a post from the database'
       'on deletePostById', () async {
     var postDaoSqfliteImpl = PostDaoSqfliteImpl(database: sqFliteDatabase);
-    when(() => sqFliteDatabase.delete(
-      postsTable,
-      where: 'id = ?',
-      whereArgs: ['id'],
-    )).thenAnswer((_) async => 1);
+    var mockSQFliteDatabase = MockSQFliteDatabase();
+    when(() => sqFliteDatabase.instance).thenReturn(mockSQFliteDatabase);
+    when(() => mockSQFliteDatabase.delete(
+          postsTable,
+          where: 'id = ?',
+          whereArgs: ['id'],
+        )).thenAnswer((_) async => 1);
 
     await postDaoSqfliteImpl.deletePostById('id');
 
-    verify(() => sqFliteDatabase.delete(
-      postsTable,
-      where: 'id = ?',
-      whereArgs: ['id'],
-    )).called(1);
+    verify(() => mockSQFliteDatabase.delete(
+          postsTable,
+          where: 'id = ?',
+          whereArgs: ['id'],
+        )).called(1);
   });
 
-  test('Should update a post from the database'
+  test(
+      'Should update a post from the database'
       'on updatePost', () async {
     var postDaoSqfliteImpl = PostDaoSqfliteImpl(database: sqFliteDatabase);
-    when(() => sqFliteDatabase.update(
-      postsTable,
-      testPostDtoJson,
-      where: 'id = ?',
-      whereArgs: ['id'],
-    )).thenAnswer((_) async => 1);
+    var mockSQFliteDatabase = MockSQFliteDatabase();
+    when(() => sqFliteDatabase.instance).thenReturn(mockSQFliteDatabase);
+    when(() => mockSQFliteDatabase.update(
+          postsTable,
+          testPostDtoJson,
+          where: 'id = ?',
+          whereArgs: ['id'],
+        )).thenAnswer((_) async => 1);
 
     await postDaoSqfliteImpl.updatePost(testPostDto);
 
-    verify(() => sqFliteDatabase.update(
-      postsTable,
-      testPostDtoJson,
-      where: 'id = ?',
-      whereArgs: ['id'],
-    )).called(1);
+    verify(() => mockSQFliteDatabase.update(
+          postsTable,
+          testPostDtoJson,
+          where: 'id = ?',
+          whereArgs: ['id'],
+        )).called(1);
   });
 }

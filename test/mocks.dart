@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sintez_test/app/db/sintez_sql_db.dart';
 import 'package:sintez_test/modules/feed/dao/likes_dao_sqflite_impl.dart';
 import 'package:sintez_test/modules/feed/dao/post_dao_sqflite_impl.dart';
 import 'package:sintez_test/modules/feed/repositories/likes_repository.dart';
@@ -12,6 +13,8 @@ import 'package:sintez_test/modules/shared_preferences/wrappers/shared_preferenc
 import 'package:sintez_test/modules/theme/repositories/theme_repository.dart';
 import 'package:sintez_test/shared/utils/helpers/uuid_generator.dart';
 import 'package:sqflite/sqflite.dart';
+
+class MockSDatabase extends Mock implements SDatabase {}
 
 class MockSQFliteDatabase extends Mock implements Database {}
 

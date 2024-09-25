@@ -11,12 +11,15 @@ import '../../../mocks.dart';
 void main() {
   late LikesDaoSqfliteImpl likesDao;
   late MockSQFliteDatabase mockDatabase;
+  late MockSDatabase sqFliteDatabase;
 
   final likeDto = LikeDto(userId: 'user1', postId: 'post1');
 
   setUpAll(() {
+    sqFliteDatabase = MockSDatabase();
     mockDatabase = MockSQFliteDatabase();
-    likesDao = LikesDaoSqfliteImpl(database: mockDatabase);
+    likesDao = LikesDaoSqfliteImpl(database: sqFliteDatabase);
+    when(() => sqFliteDatabase.instance).thenReturn(mockDatabase);
   });
 
   test(
