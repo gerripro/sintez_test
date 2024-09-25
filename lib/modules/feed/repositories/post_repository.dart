@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:sintez_test/modules/feed/dao/post_dao_sqflite_impl.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
 
+@lazySingleton
 class PostRepository {
   final PostDaoSqfliteImpl _postDao;
 

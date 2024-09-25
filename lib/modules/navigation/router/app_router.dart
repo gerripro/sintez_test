@@ -15,15 +15,12 @@ final GoRouter _router = GoRouter(
               name: RouteName.feed,
               path: RoutePath.feed,
               builder: (BuildContext context, GoRouterState state) {
-                var db = ioc<SDatabase>().instance;
                 return FeedPage(
                     viewModel: FeedPageViewModel(
                         router: _router,
                         likesService: LikesService(
-                            repository: LikesRepository(
-                                likesDao: LikesDaoSqfliteImpl(database: db))),
-                        postsRepository: PostRepository(
-                            postDao: PostDaoSqfliteImpl(database: db))));
+                            repository: ioc<LikesRepository>()),
+                        postsRepository: ioc<PostRepository>()));
               },
               routes: [
                 GoRoute(
@@ -36,9 +33,7 @@ final GoRouter _router = GoRouter(
                             uuidGenerator: UuidGenerator(),
                             mediaHandlerService: MediaHandlerService(
                                 galleryPickerWrapper: GalleryPickerWrapper()),
-                            repository: PostRepository(
-                                postDao: PostDaoSqfliteImpl(
-                                    database: ioc<SDatabase>().instance))));
+                            repository: ioc<PostRepository>()));
                   },
                 )
               ]),
