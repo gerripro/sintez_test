@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sintez_test/app/db/constants/db_configs.dart';
 import 'package:sqflite/sqflite.dart';
 
-final class SDatabase {
+class SDatabase {
   late final Database instance;
   Future<void> _initDataBase() async {
     String path = join(await getDatabasesPath(), SDbConfigs.dbName);

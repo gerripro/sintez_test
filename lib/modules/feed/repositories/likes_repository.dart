@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:sintez_test/modules/feed/dao/likes_dao_sqflite_impl.dart';
 import 'package:sintez_test/modules/feed/models/like_dto.dart';
 
+@lazySingleton
 class LikesRepository {
   final LikesDaoSqfliteImpl _likesDao;
 

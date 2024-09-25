@@ -9,6 +9,7 @@ import 'package:sintez_test/modules/navigation/constants/routes.dart';
 import 'package:sintez_test/shared/utils/helpers/format_check.dart';
 import 'package:sintez_test/shared/utils/helpers/uuid_generator.dart';
 import 'package:sintez_test/shared/utils/logger/logger.dart';
+import 'package:sintez_test/shared/utils/validators/form_validation_util.dart';
 
 part 'post_creation_page_vm.g.dart';
 
@@ -36,8 +37,20 @@ abstract class _PostCreationPageViewModel with Store {
 
   bool get isPostMediaVideo => FormatCheckHelper.isVideo(mediaUrl);
 
-  Future<void> tryCreatePost() async {
-    if (!postCreationFormKey.currentState!.validate()) {
+  Map<TextEditingController, List<String? Function(String?)>>
+      get validatorsMap {
+    if (_validatorsMap != null) return _validatorsMap!;
+    return _validatorsMap = {
+      titleController: [FormValidationUtil.requiredField],
+    };
+  }
+
+  Map<TextEditingController, List<String? Function(String?)>>? _validatorsMap;
+
+  // the function requires formStateValidation only because form validation
+  // depend on build context, therefore its hard to perform unit test
+  Future<void> tryCreatePost(bool Function() formStateValidation) async {
+    if (!formStateValidation()) {
       throw FieldValidationError();
     }
     var generatedId = uuidGenerator.generateUuid();
