@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sintez_test/modules/feed/view_models/feed_page_vm.dart';
 import 'package:sintez_test/modules/feed/widgets/feed_list_item.dart';
 import 'package:sintez_test/shared/constants/spacings.dart';
+import 'package:sintez_test/shared/widgets/containers/adaptive_constraint.dart';
 
 class FeedPage extends StatelessWidget {
   final FeedPageViewModel viewModel;
@@ -29,22 +30,30 @@ class FeedPage extends StatelessWidget {
                 top: Spacings.small,
                 bottom: Spacings.large * 2),
             separatorBuilder: (context, index) {
-              return Column(
-                children: [
-                  const SizedBox(height: Spacings.small / 2),
-                  Container(
-                    height: 1,
-                    width: double.infinity,
-                    color: Colors.black,
+              return Center(
+                child: AdaptiveConstraint(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: Spacings.small / 2),
+                      Container(
+                        height: 1,
+                        width: double.infinity,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(height: Spacings.small / 2),
+                    ],
                   ),
-                  const SizedBox(height: Spacings.small / 2),
-                ],
+                ),
               );
             },
             itemBuilder: (context, index) {
               var post = posts[index];
-              return FeedListItem(
-                  viewModel: viewModel.createFeedListItemViewModel(post));
+              return Center(
+                child: AdaptiveConstraint(
+                  child: FeedListItem(
+                      viewModel: viewModel.createFeedListItemViewModel(post)),
+                ),
+              );
             },
           );
         }),
