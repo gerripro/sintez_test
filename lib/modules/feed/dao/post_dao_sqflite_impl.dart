@@ -3,7 +3,7 @@ import 'package:sintez_test/modules/feed/dao/post_dao.dart';
 import 'package:sintez_test/modules/feed/models/post_dto.dart';
 import 'package:sqflite/sqflite.dart';
 
-final class PostDaoSqfliteImpl implements PostDao {
+class PostDaoSqfliteImpl implements PostDao {
   final Database _database;
 
   PostDaoSqfliteImpl({required Database database}) : _database = database;

@@ -42,6 +42,7 @@ abstract class _FeedPageViewModel with Store {
       _posts = await postsRepository.getAllPosts();
     } catch (e) {
       debugLogger.e(e);
+      rethrow;
     } finally {
       _postsFetching = false;
     }

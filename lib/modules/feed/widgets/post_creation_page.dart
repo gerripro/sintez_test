@@ -14,12 +14,13 @@ class PostCreationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var postCreationFormKey = viewModel.postCreationFormKey;
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: viewModel.postCreationFormKey,
+              key: postCreationFormKey,
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: Spacings.medium),
@@ -36,8 +37,9 @@ class PostCreationPage extends StatelessWidget {
                       controller: viewModel.titleController,
                       labelText: "Title",
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "This field is mandatory";
+                        for (var validatorFunction in viewModel
+                            .validatorsMap[viewModel.titleController]!) {
+                          return validatorFunction(value);
                         }
                         return null;
                       },
@@ -65,7 +67,8 @@ class PostCreationPage extends StatelessWidget {
                     MaterialButton(
                       onPressed: () async {
                         try {
-                          await viewModel.tryCreatePost();
+                          await viewModel.tryCreatePost(
+                              postCreationFormKey.currentState!.validate);
                         } catch (e) {
                           if (e is FieldValidationError) {
                             SnackBars.callRegularSnackBar(

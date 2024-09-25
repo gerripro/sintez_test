@@ -3,7 +3,7 @@ import 'package:sintez_test/modules/feed/dao/likes_dao.dart';
 import 'package:sintez_test/modules/feed/models/like_dto.dart';
 import 'package:sqflite/sqflite.dart';
 
-final class LikesDaoSqfliteImpl implements LikesDao {
+class LikesDaoSqfliteImpl implements LikesDao {
   final Database _database;
 
   LikesDaoSqfliteImpl({required Database database}) : _database = database;
