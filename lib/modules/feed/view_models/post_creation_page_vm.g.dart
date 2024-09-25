@@ -25,12 +25,13 @@ mixin _$PostCreationPageViewModel on _PostCreationPageViewModel, Store {
     });
   }
 
-  late final _$pickMediaAsyncAction =
-      AsyncAction('_PostCreationPageViewModel.pickMedia', context: context);
+  late final _$tryPickMediaAsyncAction =
+      AsyncAction('_PostCreationPageViewModel.tryPickMedia', context: context);
 
   @override
-  Future<void> pickMedia({required BuildContext context}) {
-    return _$pickMediaAsyncAction.run(() => super.pickMedia(context: context));
+  Future<void> tryPickMedia({required BuildContext context}) {
+    return _$tryPickMediaAsyncAction
+        .run(() => super.tryPickMedia(context: context));
   }
 
   @override

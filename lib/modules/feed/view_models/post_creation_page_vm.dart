@@ -70,7 +70,7 @@ abstract class _PostCreationPageViewModel with Store {
   }
 
   @action
-  Future<void> pickMedia({required BuildContext context}) async {
+  Future<void> tryPickMedia({required BuildContext context}) async {
     try {
       var mediaFile = await mediaHandlerService.pickMedia(context: context);
       mediaUrl = await mediaHandlerService.getMediaPath(mediaFile!);

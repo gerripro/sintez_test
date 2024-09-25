@@ -56,7 +56,7 @@ class PostCreationPage extends StatelessWidget {
                       ElevatedButton(
                           onPressed: () async {
                             try {
-                              await viewModel.pickMedia(context: context);
+                              await viewModel.tryPickMedia(context: context);
                             } catch (e) {
                               SnackBars.callRegularSnackBar(
                                   context: context,

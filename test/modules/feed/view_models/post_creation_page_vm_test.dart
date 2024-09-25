@@ -63,7 +63,7 @@ void main() {
     when(() => mockMediaHandlerService.getMediaPath(mediaFile))
         .thenAnswer((_) async => videoPath);
 
-    await viewModel.pickMedia(context: MockContext());
+    await viewModel.tryPickMedia(context: MockContext());
 
     expect(viewModel.mediaUrl, videoPath);
   });
@@ -80,7 +80,7 @@ void main() {
     when(() => mockMediaHandlerService.getMediaPath(mediaFile))
         .thenAnswer((_) async => "smth.mp4");
 
-    await viewModel.pickMedia(context: MockContext());
+    await viewModel.tryPickMedia(context: MockContext());
 
     expect(viewModel.isPostMediaVideo, true);
   });
@@ -98,7 +98,7 @@ void main() {
     when(() => mockMediaHandlerService.getMediaPath(mediaFile))
         .thenAnswer((_) async => "smth.jpg");
 
-    await viewModel.pickMedia(context: MockContext());
+    await viewModel.tryPickMedia(context: MockContext());
 
     expect(viewModel.isPostMediaVideo, false);
   });
